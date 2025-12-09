@@ -1,0 +1,20 @@
+{% extends "workouts/base.html" %}
+
+{% block content %}
+<h2>My workouts</h2>
+
+<a href="{% url 'workout_add' %}">Add workout</a>
+
+<ul>
+    {% for workout in object_list %}
+        <li>
+            {{ workout.date }} – {{ workout.day_type }}
+            <a href="{% url 'workout_detail' workout.pk %}">Open</a>
+            <a href="{% url 'workout_edit' workout.pk %}">Edit</a>
+            <a href="{% url 'workout_delete' workout.pk %}">Delete</a>
+        </li>
+    {% empty %}
+        <li>No workouts yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

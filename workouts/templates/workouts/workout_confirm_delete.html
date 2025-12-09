@@ -1,0 +1,12 @@
+{% extends "workouts/base.html" %}
+
+{% block content %}
+<h2>Delete workout</h2>
+<p>Are you sure you want to delete workout {{ object.date }} – {{ object.day_type }}?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete</button>
+</form>
+
+{% endblock %}
