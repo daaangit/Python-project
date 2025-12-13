@@ -1,12 +1,61 @@
 {% extends "workouts/base.html" %}
 
+{% block title %}Удаление тренировки{% endblock %}
+
 {% block content %}
-<h2>Delete workout</h2>
-<p>Are you sure you want to delete workout {{ object.date }} – {{ object.day_type }}?</p>
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card border-danger">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">
+                    <i class="bi bi-exclamation-triangle"></i> Удаление тренировки
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <h5 class="alert-heading">
+                        <i class="bi bi-exclamation-octagon"></i> Внимание!
+                    </h5>
+                    <p class="mb-0">
+                        Вы уверены, что хотите удалить тренировку от <strong>{{ object.date|date:"d.m.Y" }}</strong>?
+                    </p>
+                </div>
 
-<form method="post">
-    {% csrf_token %}
-    <button type="submit">Yes, delete</button>
-</form>
+                {% if object %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h6>Информация о тренировке:</h6>
+                        <ul class="list-unstyled mb-0">
+                            <li><strong>Дата:</strong> {{ object.date|date:"d.m.Y" }}</li>
+                            <li><strong>Тип:</strong> {{ object.get_day_type_display }}</li>
+                            <li><strong>Подходов:</strong> {{ object.sets.count }}</li>
+                            {% if object.notes %}
+                            <li><strong>Заметки:</strong> {{ object.notes|truncatechars:50 }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
 
+                <p class="text-muted">
+                    <small>
+                        <i class="bi bi-info-circle"></i> Будет удалена вся тренировка со всеми подходами. Это действие нельзя отменить.
+                    </small>
+                </p>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex justify-content-between mt-4">
+                        <a href="{% url 'workout_list' %}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> Отмена
+                        </a>
+                        <button type="submit" class="btn btn-danger">
+                            <i class="bi bi-trash"></i> Да, удалить тренировку
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
