@@ -1,0 +1,32 @@
+{% extends "workouts/base.html" %}
+{% block title %}Упражнения{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Упражнения</h1>
+    <a href="{% url 'exercise_add' %}" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Добавить упражнение
+    </a>
+</div>
+
+{% if object_list %}
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+    {% for ex in object_list %}
+    <div class="col">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title mb-1">{{ ex.name }}</h5>
+                <div class="text-muted">{{ ex.muscle_group }}</div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info text-center py-5">
+    <h4 class="alert-heading">Пока нет упражнений</h4>
+    <p>Добавь упражнения, чтобы потом выбирать их при добавлении подходов.</p>
+    <a href="{% url 'exercise_add' %}" class="btn btn-primary">Добавить первое упражнение</a>
+</div>
+{% endif %}
+{% endblock %}

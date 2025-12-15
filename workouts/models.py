@@ -12,7 +12,7 @@ class Exercise(models.Model):
         ("Core", "Core"),
         ("Other", "Other"),
     ]
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="exercises")
     name = models.CharField(max_length=100)
     muscle_group = models.CharField(
         max_length=20,
@@ -22,6 +22,11 @@ class Exercise(models.Model):
 
     def __str__(self):
         return f"{self.name} ({self.muscle_group})"
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=["user", "name"], name="uniq_exercise_per_user")
+        ]
 
 
 class Workout(models.Model):
@@ -33,7 +38,7 @@ class Workout(models.Model):
         ("Other", "Other"),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="workouts")
     date = models.DateField()
     day_type = models.CharField(
         max_length=30,
@@ -49,6 +54,10 @@ class Workout(models.Model):
 
     def __str__(self):
         return f"{self.user.username} – {self.day_type} – {self.date}"
+    
+    duration_min = models.PositiveIntegerField(null=True, blank=True)
+    bodyweight = models.FloatField(null=True, blank=True)
+    energy = models.PositiveSmallIntegerField(null=True, blank=True)
 
 
 class SetEntry(models.Model):
