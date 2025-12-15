@@ -87,7 +87,11 @@
                     </div>
 
                     <div class="d-flex justify-content-between mt-4">
-                        <a href="{% url 'workout_detail' workout.id %}" class="btn btn-outline-secondary">
+                        {% if object %}
+                            <a href="{% url 'workout_detail' object.workout.id %}" class="btn btn-outline-secondary">
+                        {% else %}
+                            <a href="{% url 'workout_detail' view.kwargs.workout_id %}" class="btn btn-outline-secondary">
+                        {% endif %}
                             <i class="bi bi-arrow-left"></i> Отмена
                         </a>
                         <button type="submit" class="btn btn-primary">

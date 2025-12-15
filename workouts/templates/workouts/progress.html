@@ -1,0 +1,52 @@
+{% extends "workouts/base.html" %}
+{% block title %}Прогресс{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Прогресс</h1>
+
+<h4>Сводка по упражнениям</h4>
+{% if by_exercise %}
+  <div class="table-responsive">
+    <table class="table table-striped align-middle">
+      <thead>
+        <tr>
+          <th>Упражнение</th>
+          <th>Группа</th>
+          <th>Подходов</th>
+          <th>Макс. вес</th>
+          <th>Объём</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in by_exercise %}
+          <tr>
+            <td>{{ row.exercise__name }}</td>
+            <td class="text-muted">{{ row.exercise__muscle_group }}</td>
+            <td>{{ row.total_sets }}</td>
+            <td>{{ row.max_weight }}</td>
+            <td>{{ row.total_volume }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <div class="alert alert-info">Пока нет данных. Добавь подходы в тренировку.</div>
+{% endif %}
+
+<hr class="my-4">
+
+<h4>Объём по дням (данные для графика)</h4>
+{% if by_day %}
+  <ul class="list-group">
+    {% for d in by_day %}
+      <li class="list-group-item d-flex justify-content-between">
+        <span>{{ d.day }}</span>
+        <span class="badge bg-success">{{ d.total_volume }}</span>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <div class="alert alert-secondary">Нет данных по дням.</div>
+{% endif %}
+{% endblock %}

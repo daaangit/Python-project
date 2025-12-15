@@ -1,0 +1,16 @@
+{% extends "workouts/base.html" %}
+{% block title %}Разархивировать{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">Разархивировать упражнение</h2>
+
+<div class="alert alert-info">
+  Упражнение <strong>{{ object.name }}</strong> снова появится в списке и в форме добавления подходов.
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  <a href="{% url 'exercise_list' %}?archived=1" class="btn btn-secondary">Отмена</a>
+  <button type="submit" class="btn btn-success">Разархивировать</button>
+</form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "workouts/base.html" %}
+{% block title %}Архивировать упражнение{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">Архивировать упражнение</h2>
+
+<div class="alert alert-warning">
+  Упражнение <strong>{{ object.name }}</strong> будет скрыто из списка и из формы добавления подходов.
+  История подходов сохранится.
+</div>
+
+<form method="post">
+  {% csrf_token %}
+  <a href="{% url 'exercise_list' %}" class="btn btn-secondary">Отмена</a>
+  <button type="submit" class="btn btn-warning">Архивировать</button>
+</form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "workouts/base.html" %}
+{% block title %}Удалить упражнение{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">Удалить упражнение</h2>
+
+<div class="alert alert-warning">
+    Вы уверены, что хотите удалить упражнение
+    <strong>{{ object.name }}</strong>?
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    <a href="{% url 'exercise_list' %}" class="btn btn-secondary">
+        Отмена
+    </a>
+    <button type="submit" class="btn btn-danger">
+        Удалить
+    </button>
+</form>
+{% endblock %}

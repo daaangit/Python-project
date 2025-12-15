@@ -10,6 +10,10 @@ from .views import (
     SetEntryUpdateView,
     ExerciseListView,
     ExerciseCreateView,
+    ExerciseDeleteView,
+    ExerciseArchiveView,
+    ExerciseUnarchiveView,
+    ProgressView,   
 )
 
 urlpatterns = [
@@ -25,5 +29,11 @@ urlpatterns = [
     path('exercises/', ExerciseListView.as_view(), name='exercise_list'),
     path('exercises/add/', ExerciseCreateView.as_view(), name='exercise_add'),
     path("set/<int:pk>/edit/", SetEntryUpdateView.as_view(), name="set_edit"),
+    path("progress/", ProgressView.as_view(), name="progress"),
+    path("exercises/<int:pk>/delete/", ExerciseDeleteView.as_view(),name="exercise_delete"),
+    path("exercises/<int:pk>/archive/", ExerciseArchiveView.as_view(), name="exercise_archive"),
+    path("exercises/<int:pk>/delete/", ExerciseDeleteView.as_view(), name="exercise_delete"),
+    path("exercises/<int:pk>/unarchive/", ExerciseUnarchiveView.as_view(), name="exercise_unarchive"),
+
 
 ]
