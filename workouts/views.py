@@ -262,3 +262,5 @@ class ProgressView(LoginRequiredMixin, TemplateView):
         ctx["by_day"] = list(by_day_map.values())
 
         return ctx
+def home_view(request):
+    return render(request, 'workouts/home.html')
