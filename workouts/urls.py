@@ -13,10 +13,12 @@ from .views import (
     ExerciseDeleteView,
     ExerciseArchiveView,
     ExerciseUnarchiveView,
-    ProgressView,   
+    ProgressView,
+    home_view
 )
 
 urlpatterns = [
+    path('', home_view, name='home'),
     path('', WorkoutListView.as_view(), name='workout_list'),
     path('workout/<int:pk>/', WorkoutDetailView.as_view(), name='workout_detail'),
     path('workout/add/', WorkoutCreateView.as_view(), name='workout_add'),
