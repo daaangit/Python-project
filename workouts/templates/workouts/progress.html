@@ -1,237 +1,226 @@
 {% extends "workouts/base.html" %}
-
 {% block title %}Мой прогресс{% endblock %}
 
 {% block content %}
 <div class="container py-4">
-    <div class="row mb-4">
-        <div class="col-12">
-            <h1 class="display-5 fw-bold">
-                <i class="bi bi-graph-up-arrow"></i> Мой прогресс
-            </h1>
-            <p class="lead text-muted">Отслеживайте ваши результаты и рост показателей</p>
+
+  <div class="row mb-4">
+    <div class="col-12">
+      <h1 class="display-6 fw-bold"><i class="bi bi-graph-up-arrow"></i> Мой прогресс</h1>
+      <p class="text-muted mb-0">Графики и статистика по тренировкам</p>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-lg-7 mb-4 mb-lg-0">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0"><i class="bi bi-calendar-heart"></i> Объём по дням (т)</h5>
         </div>
+        <div class="card-body">
+          {% if by_day %}
+            <canvas id="volumeChart" height="240"></canvas>
+          {% else %}
+            <div class="alert alert-info mb-0">Пока нет данных. Добавь подходы в тренировку.</div>
+          {% endif %}
+        </div>
+      </div>
     </div>
 
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-primary text-white">
-                    <h5 class="mb-0">
-                        <i class="bi bi-trophy"></i> Статистика по упражнениям
-                    </h5>
-                </div>
-                <div class="card-body">
-                    {% if by_exercise %}
-                    <div class="table-responsive">
-                        <table class="table table-hover table-striped">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Упражнение</th>
-                                    <th>Группа мышц</th>
-                                    <th>Подходы</th>
-                                    <th>Макс. вес</th>
-                                    <th>Общий объем</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for ex in by_exercise %}
-                                <tr>
-                                    <td><strong>{{ ex.exercise__name }}</strong></td>
-                                    <td><span class="badge bg-info">{{ ex.exercise__muscle_group }}</span></td>
-                                    <td>{{ ex.total_sets }}</td>
-                                    <td><span class="badge bg-success">{{ ex.max_weight|floatformat:1 }} кг</span></td>
-                                    <td><span class="badge bg-warning text-dark">{{ ex.total_volume|floatformat:1 }} кг·повт</span></td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                    {% else %}
-                    <div class="text-center py-5">
-                        <i class="bi bi-bar-chart display-1 text-muted"></i>
-                        <h5 class="mt-3">Нет данных для отображения</h5>
-                        <p class="text-muted">Создайте тренировки и подходы, чтобы увидеть статистику</p>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
+    <div class="col-lg-5">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0"><i class="bi bi-activity"></i> Max weight по упражнению</h5>
         </div>
+        <div class="card-body">
+          {% if exercises %}
+            <form method="get" class="mb-3">
+              <label class="form-label">Выбери упражнение</label>
+              <select class="form-select" name="exercise" onchange="this.form.submit()">
+                {% for ex in exercises %}
+                  <option value="{{ ex.id }}" {% if selected_exercise_id == ex.id|stringformat:"s" %}selected{% endif %}>
+                    {{ ex.muscle_group }} — {{ ex.name }}
+                  </option>
+                {% endfor %}
+              </select>
+            </form>
+
+            {% if exercise_series %}
+              <canvas id="exerciseChart" height="240"></canvas>
+            {% else %}
+              <div class="alert alert-secondary mb-0">Для выбранного упражнения пока нет записей.</div>
+            {% endif %}
+          {% else %}
+            <div class="alert alert-info mb-0">Сначала добавь упражнения.</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-lg-4 mb-4 mb-lg-0">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-header bg-info text-white">
+          <h5 class="mb-0"><i class="bi bi-info-circle"></i> Общая статистика</h5>
+        </div>
+        <div class="card-body">
+          {% if by_day %}
+            <div class="list-group list-group-flush">
+              <div class="list-group-item d-flex justify-content-between">
+                <span>Тренировочных дней:</span>
+                <span class="badge bg-primary">{{ total_workout_days }}</span>
+              </div>
+              <div class="list-group-item d-flex justify-content-between">
+                <span>Всего подходов:</span>
+                <span class="badge bg-success">{{ total_sets_all }}</span>
+              </div>
+              <div class="list-group-item d-flex justify-content-between">
+                <span>Средний объём / тренировка:</span>
+                <span class="badge bg-info">{{ avg_volume_per_workout|floatformat:2 }} т</span>
+              </div>
+            </div>
+          {% else %}
+            <div class="text-center py-4">
+              <i class="bi bi-calendar-x display-4 text-muted"></i>
+              <p class="mt-3 text-muted">Нет данных для статистики</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
     </div>
 
-    <div class="row mb-4">
-        <div class="col-lg-8 mb-4 mb-lg-0">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-header bg-success text-white">
-                    <h5 class="mb-0"><i class="bi bi-calendar-heart"></i> Прогресс по дням</h5>
-                </div>
-                <div class="card-body">
-                    <canvas id="volumeChart" height="250"></canvas>
-                </div>
-            </div>
+    <div class="col-lg-8">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-header bg-secondary text-white">
+          <h5 class="mb-0"><i class="bi bi-trophy"></i> Статистика по упражнениям</h5>
         </div>
-
-        <div class="col-lg-4">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0"><i class="bi bi-info-circle"></i> Общая статистика</h5>
-                </div>
-                <div class="card-body">
-                    {% if by_day %}
-                    <div class="list-group list-group-flush">
-                        <div class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Всего тренировочных дней:</span>
-                            <span class="badge bg-primary rounded-pill">{{ by_day|length }}</span>
-                        </div>
-                        <div class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Всего подходов:</span>
-                            <span class="badge bg-success rounded-pill">
-                                {% with total=0 %}{% for day in by_day %}{% with total=total|add:day.total_sets %}{% endwith %}{% endfor %}{{ total }}{% endwith %}
-                            </span>
-                        </div>
-                        <div class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Общий тренировочный объем:</span>
-                            <span class="badge bg-warning text-dark rounded-pill">
-                                {% with total=0 %}{% for day in by_day %}{% with total=total|add:day.total_volume %}{% endwith %}{% endfor %}{{ total|floatformat:1 }} кг·повт{% endwith %}
-                            </span>
-                        </div>
-                        <div class="list-group-item">
-                            <small class="text-muted"><i class="bi bi-lightbulb"></i> Объем = вес × повторения</small>
-                        </div>
-                    </div>
-                    {% else %}
-                    <div class="text-center py-4">
-                        <i class="bi bi-calendar-x display-4 text-muted"></i>
-                        <p class="mt-3 text-muted">Нет данных для статистики</p>
-                    </div>
-                    {% endif %}
-                </div>
+        <div class="card-body">
+          {% if by_exercise %}
+            <div class="table-responsive">
+              <table class="table table-hover table-striped align-middle">
+                <thead class="table-light">
+                  <tr>
+                    <th>Упражнение</th>
+                    <th>Группа</th>
+                    <th>Подходы</th>
+                    <th>Max weight</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for ex in by_exercise %}
+                    <tr>
+                      <td><strong>{{ ex.exercise__name }}</strong></td>
+                      <td><span class="badge bg-info">{{ ex.exercise__muscle_group }}</span></td>
+                      <td>{{ ex.total_sets }}</td>
+                      <td><span class="badge bg-success">{{ ex.max_weight|floatformat:1 }} кг</span></td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
             </div>
+          {% else %}
+            <div class="text-center py-5">
+              <i class="bi bi-bar-chart display-1 text-muted"></i>
+              <h5 class="mt-3">Нет данных для отображения</h5>
+              <p class="text-muted">Создайте тренировки и подходы, чтобы увидеть статистику</p>
+            </div>
+          {% endif %}
         </div>
+      </div>
     </div>
+  </div>
 
-    {% if by_day %}
-    <div class="row">
-        <div class="col-12">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-secondary text-white">
-                    <h5 class="mb-0"><i class="bi bi-table"></i> Детали по дням</h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-sm table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Дата</th>
-                                    <th>Подходы</th>
-                                    <th>Объем (кг·повт)</th>
-                                    <th>Средний объем на подход</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for day in by_day %}
-                                <tr>
-                                    <td>{{ day.day|date:"d.m.Y" }}</td>
-                                    <td>{{ day.total_sets }}</td>
-                                    <td><span class="badge bg-info">{{ day.total_volume|floatformat:1 }}</span></td>
-                                    <td><span class="badge bg-success">{{ day.total_volume|divisibleby:day.total_sets|yesno:"0.0," }}{{ day.total_volume|floatformat:1 }}</span></td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+  {% if by_day %}
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-sm border-0">
+        <div class="card-header bg-dark text-white">
+          <h5 class="mb-0"><i class="bi bi-table"></i> Детали по дням</h5>
         </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-sm table-hover align-middle">
+              <thead>
+                <tr>
+                  <th>Дата</th>
+                  <th>Подходы</th>
+                  <th>Объём (т)</th>
+                  <th>Средний объём на подход (кг·повт)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for day in by_day %}
+                  <tr>
+                    <td>{{ day.day|date:"d.m.Y" }}</td>
+                    <td>{{ day.total_sets }}</td>
+                    <td><span class="badge bg-success">{{ day.total_volume_tons|floatformat:2 }} т</span></td>
+                    <td><span class="badge bg-secondary">{{ day.avg_volume|floatformat:1 }}</span></td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <small class="text-muted">кг·повт = weight × reps</small>
+        </div>
+      </div>
     </div>
-    {% endif %}
+  </div>
+  {% endif %}
+
 </div>
+{% endblock %}
 
+{% block scripts %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    {% if by_day %}
-    const daysData = {{ by_day|safe }};
+  {% if by_day %}
+    const daysData = JSON.parse('{{ by_day_json|escapejs }}');
+    const labels = daysData.map(x => new Date(x.day).toLocaleDateString('ru-RU'));
+    const volumes = daysData.map(x => parseFloat(x.total_volume_tons));
 
-    const labels = [];
-    const volumes = [];
-
-    daysData.forEach(day => {
-        labels.push(new Date(day.day).toLocaleDateString('ru-RU'));
-        volumes.push(parseFloat(day.total_volume));
+    new Chart(document.getElementById('volumeChart'), {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Объём (т)',
+          data: volumes,
+          tension: 0.25,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: { y: { beginAtZero: true } }
+      }
     });
+  {% endif %}
 
-    const ctx = document.getElementById('volumeChart').getContext('2d');
-    const volumeChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Тренировочный объем (кг·повт)',
-                data: volumes,
-                borderColor: '#198754',
-                backgroundColor: 'rgba(25, 135, 84, 0.1)',
-                borderWidth: 3,
-                fill: true,
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { position: 'top' },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return `Объем: ${context.parsed.y} кг·повт`;
-                        }
-                    }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    title: { display: true, text: 'Объем (кг·повт)' }
-                },
-                x: {
-                    title: { display: true, text: 'Дата' }
-                }
-            }
-        }
+  {% if exercise_series %}
+    const exData = JSON.parse('{{ exercise_series_json|escapejs }}');
+    const exLabels = exData.map(x => new Date(x.day).toLocaleDateString('ru-RU'));
+    const exMax = exData.map(x => parseFloat(x.max_weight));
+
+    new Chart(document.getElementById('exerciseChart'), {
+      type: 'line',
+      data: {
+        labels: exLabels,
+        datasets: [{
+          label: 'Max weight (кг)',
+          data: exMax,
+          tension: 0.25,
+          fill: false
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: { y: { beginAtZero: true } }
+      }
     });
-    {% endif %}
+  {% endif %}
 });
 </script>
-
-<style>
-    .card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
-    }
-
-    .badge {
-        transition: all 0.2s ease;
-    }
-
-    .badge:hover {
-        transform: scale(1.05);
-    }
-
-    .table-hover tbody tr {
-        transition: background-color 0.2s ease;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .card {
-        animation: fadeIn 0.5s ease-out;
-    }
-</style>
 {% endblock %}

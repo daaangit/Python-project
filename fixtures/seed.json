@@ -1,0 +1,976 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$60ZMOqSjf6ybcE5w03jDnc$yH+EZS7wgbtdA5pd8Cx+44R2rlncamahE+eSxyMPCa8=",
+    "last_login": "2025-12-17T00:55:10.301Z",
+    "is_superuser": true,
+    "username": "Admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2025-12-09T21:32:06.073Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$X1Ta71jU3RNFrj076vTX8D$ajc4CgWH5HMDCsqc4HhgR/ZfvwK51Rb4n40dipmKS+U=",
+    "last_login": "2025-12-17T00:54:58.069Z",
+    "is_superuser": false,
+    "username": "Walter",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-15T16:03:04.388Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$hlvxkePju1Nwx8m2SSsAsE$Z5sUykRms1vsGr3Mi3tUtQmMEjo8rXwCDz5iv+8tMw8=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "demo",
+    "first_name": "",
+    "last_name": "",
+    "email": "demo@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-15T20:56:07.190Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$1D0mme9iqJtSnusgVT7pIT$b9iitvnqIJ6P6k3VZNXnoDISvyr9R4BB640YRNVUChA=",
+    "last_login": "2025-12-16T21:32:14.048Z",
+    "is_superuser": false,
+    "username": "Test123",
+    "first_name": "",
+    "last_name": "",
+    "email": "testemail@mail.ru",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2025-12-16T21:32:13.831Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "name": "Bench Press",
+    "is_active": true,
+    "muscle_group": "Chest"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 3,
+  "fields": {
+    "user": 1,
+    "name": "Pull-ups",
+    "is_active": true,
+    "muscle_group": "Back"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 4,
+  "fields": {
+    "user": 1,
+    "name": "Deadlift",
+    "is_active": true,
+    "muscle_group": "Back"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 5,
+  "fields": {
+    "user": 1,
+    "name": "Incline Dumbbel Press",
+    "is_active": true,
+    "muscle_group": "Chest"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 6,
+  "fields": {
+    "user": 1,
+    "name": "Quad Extensions",
+    "is_active": true,
+    "muscle_group": "Legs"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 8,
+  "fields": {
+    "user": 3,
+    "name": "Bench Press",
+    "is_active": true,
+    "muscle_group": "Chest"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 9,
+  "fields": {
+    "user": 3,
+    "name": "Incline Dumbbell Press",
+    "is_active": true,
+    "muscle_group": "Chest"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 10,
+  "fields": {
+    "user": 3,
+    "name": "Deadlift",
+    "is_active": true,
+    "muscle_group": "Back"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 11,
+  "fields": {
+    "user": 3,
+    "name": "Lat Pulldown",
+    "is_active": true,
+    "muscle_group": "Back"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 12,
+  "fields": {
+    "user": 3,
+    "name": "Squat",
+    "is_active": true,
+    "muscle_group": "Legs"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 13,
+  "fields": {
+    "user": 3,
+    "name": "Lateral Raises",
+    "is_active": true,
+    "muscle_group": "Shoulders"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 14,
+  "fields": {
+    "user": 3,
+    "name": "Old Exercise (archived)",
+    "is_active": false,
+    "muscle_group": "Other"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 15,
+  "fields": {
+    "user": 1,
+    "name": "Lateral Raises",
+    "is_active": true,
+    "muscle_group": "Shoulders"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 16,
+  "fields": {
+    "user": 1,
+    "name": "Dumbbell Biceps Curls",
+    "is_active": true,
+    "muscle_group": "Arms"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 18,
+  "fields": {
+    "user": 1,
+    "name": "Back Extension",
+    "is_active": true,
+    "muscle_group": "Back"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 20,
+  "fields": {
+    "user": 1,
+    "name": "Hamstring Curls",
+    "is_active": true,
+    "muscle_group": "Legs"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 21,
+  "fields": {
+    "user": 1,
+    "name": "Triceps Pushdown",
+    "is_active": true,
+    "muscle_group": "Arms"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 22,
+  "fields": {
+    "user": 1,
+    "name": "Pecdec",
+    "is_active": true,
+    "muscle_group": "Chest"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 23,
+  "fields": {
+    "user": 1,
+    "name": "Chest Hammer Press",
+    "is_active": true,
+    "muscle_group": "Other"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 24,
+  "fields": {
+    "user": 1,
+    "name": "T-Bar Row",
+    "is_active": true,
+    "muscle_group": "Back"
+  }
+},
+{
+  "model": "workouts.exercise",
+  "pk": 26,
+  "fields": {
+    "user": 1,
+    "name": "Barbell Squats",
+    "is_active": true,
+    "muscle_group": "Legs"
+  }
+},
+{
+  "model": "workouts.workout",
+  "pk": 12,
+  "fields": {
+    "user": 3,
+    "date": "2025-12-15",
+    "day_type": "Chest_Triceps",
+    "notes": "Demo chest day",
+    "created_at": "2025-12-15T20:56:07.891Z",
+    "duration_min": null,
+    "bodyweight": null,
+    "energy": null
+  }
+},
+{
+  "model": "workouts.workout",
+  "pk": 13,
+  "fields": {
+    "user": 3,
+    "date": "2025-12-13",
+    "day_type": "Back_Biceps",
+    "notes": "Demo back day",
+    "created_at": "2025-12-15T20:56:07.894Z",
+    "duration_min": null,
+    "bodyweight": null,
+    "energy": null
+  }
+},
+{
+  "model": "workouts.workout",
+  "pk": 14,
+  "fields": {
+    "user": 3,
+    "date": "2025-12-11",
+    "day_type": "Legs",
+    "notes": "Demo legs day",
+    "created_at": "2025-12-15T20:56:07.897Z",
+    "duration_min": null,
+    "bodyweight": null,
+    "energy": null
+  }
+},
+{
+  "model": "workouts.workout",
+  "pk": 15,
+  "fields": {
+    "user": 1,
+    "date": "2025-12-10",
+    "day_type": "Chest_Triceps",
+    "notes": "Usual Chest Triceps day",
+    "created_at": "2025-12-17T00:38:10.796Z",
+    "duration_min": null,
+    "bodyweight": null,
+    "energy": null
+  }
+},
+{
+  "model": "workouts.workout",
+  "pk": 16,
+  "fields": {
+    "user": 1,
+    "date": "2025-12-12",
+    "day_type": "Back_Biceps",
+    "notes": "",
+    "created_at": "2025-12-17T00:49:37.629Z",
+    "duration_min": null,
+    "bodyweight": null,
+    "energy": null
+  }
+},
+{
+  "model": "workouts.workout",
+  "pk": 17,
+  "fields": {
+    "user": 1,
+    "date": "2025-12-14",
+    "day_type": "Legs_Shoulders",
+    "notes": "",
+    "created_at": "2025-12-17T00:51:44.516Z",
+    "duration_min": null,
+    "bodyweight": null,
+    "energy": null
+  }
+},
+{
+  "model": "workouts.workout",
+  "pk": 18,
+  "fields": {
+    "user": 1,
+    "date": "2025-12-16",
+    "day_type": "Chest_Triceps",
+    "notes": "",
+    "created_at": "2025-12-17T09:43:05.412Z",
+    "duration_min": null,
+    "bodyweight": null,
+    "energy": null
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 14,
+  "fields": {
+    "workout": 12,
+    "exercise": 8,
+    "weight": 80.0,
+    "reps": 10,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 15,
+  "fields": {
+    "workout": 12,
+    "exercise": 8,
+    "weight": 80.0,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 16,
+  "fields": {
+    "workout": 12,
+    "exercise": 9,
+    "weight": 30.0,
+    "reps": 12,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 17,
+  "fields": {
+    "workout": 12,
+    "exercise": 13,
+    "weight": 9.0,
+    "reps": 15,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 18,
+  "fields": {
+    "workout": 13,
+    "exercise": 10,
+    "weight": 140.0,
+    "reps": 5,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 19,
+  "fields": {
+    "workout": 13,
+    "exercise": 10,
+    "weight": 150.0,
+    "reps": 3,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 20,
+  "fields": {
+    "workout": 13,
+    "exercise": 11,
+    "weight": 75.0,
+    "reps": 10,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 21,
+  "fields": {
+    "workout": 14,
+    "exercise": 12,
+    "weight": 120.0,
+    "reps": 5,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 22,
+  "fields": {
+    "workout": 14,
+    "exercise": 12,
+    "weight": 110.0,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 23,
+  "fields": {
+    "workout": 15,
+    "exercise": 5,
+    "weight": 40.0,
+    "reps": 12,
+    "notes": "HARD"
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 24,
+  "fields": {
+    "workout": 15,
+    "exercise": 5,
+    "weight": 40.0,
+    "reps": 9,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 25,
+  "fields": {
+    "workout": 15,
+    "exercise": 5,
+    "weight": 40.0,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 26,
+  "fields": {
+    "workout": 15,
+    "exercise": 5,
+    "weight": 40.0,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 27,
+  "fields": {
+    "workout": 15,
+    "exercise": 1,
+    "weight": 80.0,
+    "reps": 14,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 28,
+  "fields": {
+    "workout": 15,
+    "exercise": 1,
+    "weight": 80.0,
+    "reps": 10,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 29,
+  "fields": {
+    "workout": 15,
+    "exercise": 1,
+    "weight": 80.0,
+    "reps": 10,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 30,
+  "fields": {
+    "workout": 15,
+    "exercise": 23,
+    "weight": 40.0,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 31,
+  "fields": {
+    "workout": 15,
+    "exercise": 23,
+    "weight": 40.0,
+    "reps": 7,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 32,
+  "fields": {
+    "workout": 15,
+    "exercise": 23,
+    "weight": 40.0,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 33,
+  "fields": {
+    "workout": 15,
+    "exercise": 22,
+    "weight": 63.5,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 34,
+  "fields": {
+    "workout": 15,
+    "exercise": 22,
+    "weight": 63.5,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 35,
+  "fields": {
+    "workout": 15,
+    "exercise": 22,
+    "weight": 63.5,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 36,
+  "fields": {
+    "workout": 15,
+    "exercise": 22,
+    "weight": 63.5,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 37,
+  "fields": {
+    "workout": 15,
+    "exercise": 21,
+    "weight": 68.0,
+    "reps": 9,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 38,
+  "fields": {
+    "workout": 15,
+    "exercise": 21,
+    "weight": 68.0,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 39,
+  "fields": {
+    "workout": 15,
+    "exercise": 21,
+    "weight": 68.0,
+    "reps": 6,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 40,
+  "fields": {
+    "workout": 15,
+    "exercise": 21,
+    "weight": 68.0,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 41,
+  "fields": {
+    "workout": 16,
+    "exercise": 24,
+    "weight": 65.0,
+    "reps": 12,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 42,
+  "fields": {
+    "workout": 16,
+    "exercise": 24,
+    "weight": 65.0,
+    "reps": 10,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 43,
+  "fields": {
+    "workout": 16,
+    "exercise": 24,
+    "weight": 65.0,
+    "reps": 7,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 44,
+  "fields": {
+    "workout": 16,
+    "exercise": 3,
+    "weight": 91.0,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 45,
+  "fields": {
+    "workout": 16,
+    "exercise": 3,
+    "weight": 91.0,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 46,
+  "fields": {
+    "workout": 16,
+    "exercise": 3,
+    "weight": 91.0,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 47,
+  "fields": {
+    "workout": 16,
+    "exercise": 16,
+    "weight": 25.0,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 48,
+  "fields": {
+    "workout": 16,
+    "exercise": 16,
+    "weight": 25.0,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 49,
+  "fields": {
+    "workout": 16,
+    "exercise": 16,
+    "weight": 25.0,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 50,
+  "fields": {
+    "workout": 17,
+    "exercise": 26,
+    "weight": 140.0,
+    "reps": 12,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 51,
+  "fields": {
+    "workout": 17,
+    "exercise": 26,
+    "weight": 140.0,
+    "reps": 12,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 52,
+  "fields": {
+    "workout": 17,
+    "exercise": 26,
+    "weight": 140.0,
+    "reps": 12,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 53,
+  "fields": {
+    "workout": 17,
+    "exercise": 26,
+    "weight": 120.0,
+    "reps": 16,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 54,
+  "fields": {
+    "workout": 17,
+    "exercise": 26,
+    "weight": 100.0,
+    "reps": 20,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 55,
+  "fields": {
+    "workout": 17,
+    "exercise": 6,
+    "weight": 115.0,
+    "reps": 20,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 56,
+  "fields": {
+    "workout": 17,
+    "exercise": 6,
+    "weight": 115.0,
+    "reps": 20,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 57,
+  "fields": {
+    "workout": 17,
+    "exercise": 6,
+    "weight": 110.0,
+    "reps": 20,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 58,
+  "fields": {
+    "workout": 18,
+    "exercise": 1,
+    "weight": 100.0,
+    "reps": 12,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 59,
+  "fields": {
+    "workout": 18,
+    "exercise": 1,
+    "weight": 100.0,
+    "reps": 10,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 60,
+  "fields": {
+    "workout": 18,
+    "exercise": 1,
+    "weight": 100.0,
+    "reps": 8,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 61,
+  "fields": {
+    "workout": 18,
+    "exercise": 5,
+    "weight": 40.0,
+    "reps": 12,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 62,
+  "fields": {
+    "workout": 18,
+    "exercise": 5,
+    "weight": 40.0,
+    "reps": 12,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 63,
+  "fields": {
+    "workout": 18,
+    "exercise": 5,
+    "weight": 40.0,
+    "reps": 15,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 64,
+  "fields": {
+    "workout": 18,
+    "exercise": 22,
+    "weight": 63.5,
+    "reps": 15,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 65,
+  "fields": {
+    "workout": 18,
+    "exercise": 22,
+    "weight": 63.5,
+    "reps": 15,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 66,
+  "fields": {
+    "workout": 18,
+    "exercise": 22,
+    "weight": 63.5,
+    "reps": 15,
+    "notes": ""
+  }
+},
+{
+  "model": "workouts.setentry",
+  "pk": 67,
+  "fields": {
+    "workout": 18,
+    "exercise": 22,
+    "weight": 63.5,
+    "reps": 15,
+    "notes": ""
+  }
+}
+]

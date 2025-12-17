@@ -19,7 +19,7 @@ from .views import (
 
 urlpatterns = [
     path('', home_view, name='home'),
-    path('', WorkoutListView.as_view(), name='workout_list'),
+    path('workouts/', WorkoutListView.as_view(), name='workout_list'),
     path('workout/<int:pk>/', WorkoutDetailView.as_view(), name='workout_detail'),
     path('workout/add/', WorkoutCreateView.as_view(), name='workout_add'),
     path('workout/<int:pk>/edit/', WorkoutUpdateView.as_view(), name='workout_edit'),

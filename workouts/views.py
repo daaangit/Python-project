@@ -9,9 +9,12 @@ from django.db.models.functions import TruncDate
 from .models import Workout, SetEntry, Exercise
 from django.shortcuts import get_object_or_404, redirect
 from collections import OrderedDict
-from datetime import date
+from datetime import date, timedelta
+from django.utils import timezone
 from django.contrib import messages
 from django.db.models.deletion import ProtectedError
+import json
+from django.utils import timezone
 
 
 class WorkoutListView(LoginRequiredMixin, ListView):
@@ -226,12 +229,42 @@ class ProgressView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
+        user = self.request.user
 
         sets_qs = (
             SetEntry.objects
-            .filter(workout__user=self.request.user)
+            .filter(workout__user=user)
             .select_related("workout", "exercise")
-            .order_by("workout__date")
+        )
+
+        by_day_map = OrderedDict()
+
+        for s in sets_qs:
+            d = s.workout.date
+            vol = float(s.weight) * int(s.reps)
+
+            if d not in by_day_map:
+                by_day_map[d] = {
+                    "day": d,
+                    "total_sets": 0,
+                    "total_volume": 0.0,
+                }
+
+            by_day_map[d]["total_sets"] += 1
+            by_day_map[d]["total_volume"] += vol
+
+        by_day = []
+        for d, v in by_day_map.items():
+            by_day.append({
+                "day": d,
+                "total_sets": v["total_sets"],
+                "total_volume_tons": round(v["total_volume"] / 1000, 2),
+                "avg_volume": round(v["total_volume"] / max(v["total_sets"], 1), 1),
+            })
+
+        ctx["by_day"] = by_day
+        ctx["by_day_json"] = json.dumps(
+            [{"day": x["day"].isoformat(), "total_volume_tons": x["total_volume_tons"]} for x in by_day]
         )
 
         volume_expr = ExpressionWrapper(
@@ -241,26 +274,53 @@ class ProgressView(LoginRequiredMixin, TemplateView):
 
         ctx["by_exercise"] = (
             sets_qs
-            .values("exercise_id", "exercise__name", "exercise__muscle_group")
+            .values("exercise__name", "exercise__muscle_group")
             .annotate(
                 total_sets=Count("id"),
                 max_weight=Max("weight"),
-                total_volume=Sum(volume_expr),
             )
             .order_by("exercise__muscle_group", "exercise__name")
         )
-        by_day_map = OrderedDict()
-        for s in sets_qs:
-            d = s.workout.date
-            vol = float(s.weight) * int(s.reps)
 
-            if d not in by_day_map:
-                by_day_map[d] = {"day": d, "total_volume": 0.0, "total_sets": 0}
-            by_day_map[d]["total_volume"] += vol
-            by_day_map[d]["total_sets"] += 1
+        exercises = Exercise.objects.filter(user=user, is_active=True).order_by("muscle_group", "name")
+        ctx["exercises"] = exercises
 
-        ctx["by_day"] = list(by_day_map.values())
+        selected_ex_id = self.request.GET.get("exercise")
+        if not selected_ex_id and exercises.exists():
+            selected_ex_id = str(exercises.first().id)
+
+        ctx["selected_exercise_id"] = selected_ex_id
+
+        chart_points = []
+
+        if selected_ex_id:
+            series = (
+                sets_qs
+                .filter(exercise_id=int(selected_ex_id))
+                .values("workout__date")
+                .annotate(max_weight=Max("weight"))
+                .order_by("workout__date")
+            )
+
+            chart_points = [
+                {"day": r["workout__date"].isoformat(), "max_weight": float(r["max_weight"])}
+                for r in series
+            ]
+
+        ctx["exercise_series"] = chart_points
+        ctx["exercise_series_json"] = json.dumps(chart_points)
+        total_workout_days = len(by_day)
+        total_sets_all = sum(x["total_sets"] for x in by_day)
+        total_volume_tons_all = sum(x["total_volume_tons"] for x in by_day)
+
+        avg_volume_per_workout = (total_volume_tons_all / total_workout_days) if total_workout_days else 0.0
+
+        ctx["total_workout_days"] = total_workout_days
+        ctx["total_sets_all"] = total_sets_all
+        ctx["avg_volume_per_workout"] = round(avg_volume_per_workout, 2)
+        ctx["total_volume_tons_all"] = round(total_volume_tons_all, 2)
 
         return ctx
+
 def home_view(request):
     return render(request, 'workouts/home.html')
